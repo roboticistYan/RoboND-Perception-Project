@@ -56,7 +56,7 @@ def pcl_callback(pcl_msg):
     
     # TODO: Statistical Outlier Filtering
     outlier_filter = cloud.make_statistical_outlier_filter()
-    outlier_filter.set_mean_k(50) # number of neighboring points
+    outlier_filter.set_mean_k(200) # number of neighboring points
     outlier_filter.set_std_dev_mul_thresh(1.0) # scale factor for std. deviation
     cloud_filtered = outlier_filter.filter()
 
@@ -70,14 +70,14 @@ def pcl_callback(pcl_msg):
     # TODO: PassThrough Filter
     passthrough = cloud_filtered.make_passthrough_filter()
     passthrough.set_filter_field_name('z')
-    passthrough.set_filter_limits(0.6, 0.7)
+    passthrough.set_filter_limits(0.6, 0.75)
     cloud_filtered = passthrough.filter()
 
     # TODO: RANSAC Plane Segmentation
     seg = cloud_filtered.make_segmenter()
     seg.set_model_type(pcl.SACMODEL_PLANE)
     seg.set_method_type(pcl.SAC_RANSAC)
-    seg.set_distance_threshold(0.01)    # maximum dist.
+    seg.set_distance_threshold(0.02)    # maximum dist.
 
     # TODO: Extract inliers and outliers
     inliers, coefficients = seg.segment()
@@ -88,9 +88,9 @@ def pcl_callback(pcl_msg):
     white_cloud = XYZRGB_to_XYZ( extracted_objects )
     tree = white_cloud.make_kdtree()
     ec = white_cloud.make_EuclideanClusterExtraction()
-    ec.set_ClusterTolerance(0.1)
-    ec.set_MinClusterSize(500)
-    ec.set_MaxClusterSize(1000)
+    ec.set_ClusterTolerance(0.01)
+    ec.set_MinClusterSize(100)
+    ec.set_MaxClusterSize(500)
     ec.set_SearchMethod(tree)
     cluster_indices = ec.Extract()
 
@@ -107,10 +107,12 @@ def pcl_callback(pcl_msg):
     cluster_cloud.from_list(color_cluster_point_list)
 
     # TODO: Convert PCL data to ROS messages
+    #ros_filtered_cloud = pcl_to_ros(cloud_filtered) # Use this to visaulize fitered result
     ros_cluster_cloud = pcl_to_ros(cluster_cloud)
     ros_table_cloud = pcl_to_ros(extracted_table)
 
     # TODO: Publish ROS messages
+    #pcl_objects_pub.publish(ros_filtered_cloud)
     pcl_objects_pub.publish(ros_cluster_cloud)
     pcl_table_pub.publish(ros_table_cloud)
 
