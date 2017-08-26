@@ -117,5 +117,3 @@ Test  | Objects | Recognized | Accuracy
 Test 3 was harder because the objects are cramped on the table. Since the size of objects varies, I had to set clustering size limit to be [50, 600]. When the objects are close, they are sometimes combined as a single cluster.
 
 In this project, I only used color histogram and surface normal histogram as featrues. If more featrues are taken into account, the classification could become more robust. For instance, my glue was classified as biscuit by mistake. In this case, size can be a useful feature to distinguish biscuit and glue.
-
-
