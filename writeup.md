@@ -101,6 +101,7 @@ ROS topic | Description
 
 The output yaml files are placed in the `output` directory. The following table shows the accuracy metrics.
 Test  | Objects | Recognized | Accuracy
+
 --- | --- | --- | ---
 1 | 3 | 3 | 100%
 2 | 5 | 4 | 80%
