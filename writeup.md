@@ -91,9 +91,9 @@ ROS topic | Description
 2. After having the dataset, I rosran traing_svm.py to generate a classification model. The model was reported to have accuracy of 97%.
 3. Finally, I used this model to classify clustered point cloud following steps in excercise 2.
 
+#### 4. Provide a snapshot of the normalized confusion matrix.
 
-
-
+![confusion-matrix](misc_images/normalized_confusion_matrix.jpg)
 
 ### Pick and Place Setup
 
