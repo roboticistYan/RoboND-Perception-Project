@@ -93,8 +93,8 @@ Visualization Manager:
       Selectable: true
       Size (Pixels): 3
       Size (m): 0.00999999978
-      Style: Points
-      Topic: /camera/depth_registered/points
+      Style: Squares
+      Topic: /pr2/pcl_cluster
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
